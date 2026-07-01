@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Recruiter Settings')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: recruiter-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Corporate portal settings</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Adjust credential tokens and notification configurations.</p>
+                <div style="margin-top:2rem; border-top: 1px solid var(--border-color); padding-top:1.5rem;">
+                    <h3>Security Preferences</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+                        <div>
+                            <p style="font-size:0.95rem;">Reset Login Password</p>
+                            <p style="font-size:0.8rem; color:var(--text-muted);">Triggers a reset verification coordinate link.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="window.showToast('Updated', 'Password reset instructions mailed.', 'success')">Request Link</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

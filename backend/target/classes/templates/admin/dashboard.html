@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('TPO Control Center')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="glass-card">
+                <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Placement Coordinator Panel</h1>
+                <p style="color: var(--text-secondary);">Oversee active campus recruitment metrics, manage corporate listings, and compile placement drive reports.</p>
+            </div>
+
+            <!-- TPO Overview Stats -->
+            <div class="stats-grid">
+                <div class="stat-card" onclick="location.href='/admin/students'" style="cursor: pointer;">
+                    <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="stat-info">
+                        <h3 id="admin-stat-students">120</h3>
+                        <p>Enrolled Students</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="location.href='/admin/companies'" style="cursor: pointer;">
+                    <div class="stat-icon" style="color:var(--accent-cyan);"><i class="fa-solid fa-building"></i></div>
+                    <div class="stat-info">
+                        <h3 id="admin-stat-companies">14</h3>
+                        <p>Partner Corporates</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="location.href='/admin/jobs'" style="cursor: pointer;">
+                    <div class="stat-icon" style="color:var(--accent-amber);"><i class="fa-solid fa-signature"></i></div>
+                    <div class="stat-info">
+                        <h3 id="admin-stat-pending">3</h3>
+                        <p>Pending Approvals</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2>Recent Campus Drives Activity</h2>
+                    <button class="btn btn-secondary" onclick="location.href='/admin/reports'">Reports Compiler</button>
+                </div>
+                <p style="color:var(--text-secondary); line-height:1.5; margin-top:0.5rem;">Total vacancy drives published this semester: <strong>26 Drives</strong></p>
+                <p style="color:var(--text-secondary); line-height:1.5;">Placement Drive Conversion Rate: <strong>84.6%</strong></p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(async () => {
+                try {
+                    const jobs = await window.apiRequest("/jobs", "GET");
+                    const pending = (jobs || []).filter(j => j.status === 'PENDING_APPROVAL').length;
+                    document.getElementById("admin-stat-pending").textContent = pending + " Pending";
+                    
+                    const reports = await window.apiRequest("/reports", "GET");
+                    // We can estimate students and companies counts based on reports or mock data
+                    if (reports && reports.length > 0) {
+                        const stats = JSON.parse(reports[reports.length-1].dataJson || '{}');
+                        if (stats.totalStudentsRegistered) {
+                            document.getElementById("admin-stat-students").textContent = stats.totalStudentsRegistered + " Registered";
+                        }
+                    }
+                } catch(e) {}
+            }, 500);
+        });
+    </script>
+</body>
+</html>

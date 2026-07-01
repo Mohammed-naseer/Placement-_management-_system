@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Scheduled Interviews')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2><i class="fa-solid fa-calendar-days" style="color:var(--accent-purple);"></i> Interview Schedules</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Access upcoming interview rounds, durations, and direct meeting links.</p>
+            </div>
+
+            <div id="interviews-list" class="jobs-list">
+                <!-- Interviews list populated via interviews.js -->
+                <div style="text-align: center; padding: 2rem;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; color:var(--accent-purple);"></i> Loading interview rounds...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/interviews.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Portfolio Resume')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <button class="btn btn-secondary" onclick="location.href='/student/profile'" style="margin-bottom: 1rem;"><i class="fa-solid fa-arrow-left"></i> Portfolio Details</button>
+                <h2>Upload CV / Resume</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem; font-size:0.9rem;">Upload a PDF or Word document containing your resume. We will parse details automatically.</p>
+                
+                <div style="margin-top: 1.5rem; display:flex; flex-direction:column; gap:1.25rem;">
+                    <div style="border: 2px dashed var(--border-color); padding: 2rem; border-radius: var(--border-radius); text-align:center;">
+                        <i class="fa-solid fa-cloud-upload-alt" style="font-size:2.5rem; color:var(--accent-blue); margin-bottom:1rem;"></i>
+                        <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx" style="display:none;" onchange="document.getElementById('file-chosen-name').textContent = this.files[0].name;">
+                        <div style="margin-bottom: 1rem;">
+                            <button class="btn btn-secondary" onclick="document.getElementById('resume-file-input').click()"><i class="fa-solid fa-file"></i> Choose Document</button>
+                        </div>
+                        <span id="file-chosen-name" style="font-size:0.85rem; color:var(--text-secondary);">No file chosen</span>
+                    </div>
+                    <button class="btn" onclick="window.uploadResume('resume-file-input')"><i class="fa-solid fa-arrow-up-from-bracket"></i> Upload Resume</button>
+                </div>
+            </div>
+
+            <!-- Resume preview -->
+            <div class="glass-card">
+                <h3>Uploaded Resume Preview</h3>
+                <div id="resume-preview-box" style="margin-top:1.5rem;">
+                    <p style="color:var(--text-muted); font-size:0.9rem;">No resume uploaded or parsed. Sync document above.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/upload.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            setTimeout(async () => {
+                try {
+                    const profile = await window.apiRequest("/auth/profile", "GET");
+                    if (profile && profile.studentProfile && profile.studentProfile.resumeUrl) {
+                        const preview = document.getElementById("resume-preview-box");
+                        preview.innerHTML = `
+                            <div class="applicant-card" style="display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <h4 style="color:var(--accent-emerald);"><i class="fa-solid fa-file-pdf"></i> Resume File Active</h4>
+                                    <a href="${profile.studentProfile.resumeUrl}" target="_blank" style="font-size:0.85rem; color:var(--accent-blue); text-decoration:none; display:inline-block; margin-top:0.25rem;">View File Link</a>
+                                </div>
+                                <span class="badge badge-approved">Uploaded</span>
+                            </div>
+                        `;
+                    }
+                } catch(e) {}
+            }, 500);
+        });
+    </script>
+</body>
+</html>

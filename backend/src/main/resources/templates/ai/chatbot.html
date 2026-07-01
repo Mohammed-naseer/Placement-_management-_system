@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('AI Chatbot & Support')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <!-- We determine sidebar based on session role in script, but we can default to simple header and sidebar back button -->
+        <div class="sidebar">
+            <button class="btn btn-secondary" style="width:100%; margin-bottom:1rem;" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active"><i class="fa-solid fa-comments"></i> <span>Chat Channels</span></li>
+            </ul>
+            <div id="chat-contacts-list" class="chat-users-list" style="margin-top: 1rem; border-top:1px solid var(--border-color); padding-top:1rem;">
+                <!-- Contacts populated via chatbot.js -->
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="chat-container">
+                <!-- Message Window -->
+                <div class="chat-window">
+                    <div class="chat-header">
+                        <div class="user-avatar" style="width:40px; height:40px;">AI</div>
+                        <div>
+                            <h4 id="chat-partner-name">AI Career Assistant</h4>
+                            <p id="chat-partner-role" style="font-size:0.75rem; color:var(--text-secondary);">Direct Guidance Support</p>
+                        </div>
+                    </div>
+                    
+                    <div id="chat-messages-box" class="chat-messages">
+                        <div class="message-bubble message-received">
+                            Hello! I am your AI placement assistant. How can I help you coordinate your recruitment preparations or resume audits today?
+                            <div class="message-meta">Now</div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-msg-input" placeholder="Type your message here..." onkeypress="window.handleChatKeyPress(event)" style="flex:1;">
+                        <button class="btn" onclick="window.sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/chatbot.js"></script>
+</body>
+</html>

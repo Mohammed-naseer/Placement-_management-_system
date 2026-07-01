@@ -1,0 +1,17 @@
+/* Recruiter portal custom styles */
+.job-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.applicant-card {
+    background: rgba(21, 30, 51, 0.2);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    transition: var(--transition-fast);
+}
+.applicant-card:hover {
+    border-color: var(--accent-blue);
+}

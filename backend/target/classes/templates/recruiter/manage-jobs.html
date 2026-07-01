@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Manage Postings')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: recruiter-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Manage Vacancy Postings</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Monitor placement approvals, active application counters, and job removal options.</p>
+            </div>
+
+            <div id="recruiter-jobs-list" class="jobs-list">
+                <div style="text-align: center; padding: 2rem;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; color:var(--accent-blue);"></i> Loading posted vacancies...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/recruiter.js"></script>
+</body>
+</html>

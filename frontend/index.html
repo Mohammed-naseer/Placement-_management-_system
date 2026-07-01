@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-PMS | Smart Placement Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Glowing Background Blobs -->
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-2"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <!-- Header Navigation -->
+    <header id="main-header" style="display: none;">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i> AI-PMS
+            </div>
+            <ul class="nav-links" id="nav-menu">
+                <!-- Dynamically populated based on role -->
+            </ul>
+            <div class="user-badge">
+                <div class="user-avatar" id="nav-avatar">U</div>
+                <div class="user-info-text">
+                    <span id="nav-username" style="font-weight: 600; display: block; font-size: 0.85rem;">User</span>
+                    <span id="nav-role" style="color: var(--text-secondary); font-size: 0.75rem;">Role</span>
+                </div>
+                <i class="fa-solid fa-sign-out-alt" id="logout-btn" style="margin-left: 1rem; cursor: pointer; color: var(--accent-rose);" title="Logout"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Views Containment -->
+    <main id="app-view">
+
+        <!-- 1. Authentication View (Product Landing Page) -->
+        <section id="auth-view">
+            <div class="auth-wrapper">
+                <!-- Left Side: 3D Holographic Hero and Features -->
+                <div class="auth-hero-3d">
+                    <h1 class="hero-3d-title">Next-Gen Campus <span>Placement ERP</span></h1>
+                    <p class="hero-3d-desc">Experience a comprehensive web-based platform designed to streamline the campus recruitment lifecycle, coordinate student databases, automate eligibility filters, and schedule interviews.</p>
+                    <div class="hero-3d-image-container">
+                        <img src="assets/hero-3d.png" class="hero-3d-image" alt="AI Placement Management System">
+                    </div>
+                </div>
+                
+                <!-- Right Side: Interactive Glass Card Form -->
+                <div class="auth-card">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h2 style="font-size: 2rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;"><i class="fa-solid fa-graduation-cap"></i> AI-PMS</h2>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem;">Smart Placement Office ERP</p>
+                    </div>
+
+                    <div class="auth-tabs">
+                        <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Login</div>
+                        <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Register</div>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" placeholder="Enter username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" placeholder="Enter password" required>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Login <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                    </form>
+
+                    <!-- Registration Form -->
+                    <form id="register-form" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reg-username">Username</label>
+                                <input type="text" id="reg-username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-email">Email</label>
+                                <input type="email" id="reg-email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reg-password">Password</label>
+                                <input type="password" id="reg-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-role">Role</label>
+                                <select id="reg-role" onchange="toggleRoleFields()" required>
+                                    <option value="STUDENT">Student</option>
+                                    <option value="RECRUITER">Recruiter</option>
+                                    <option value="PLACEMENT_OFFICER">Placement Officer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Student Fields -->
+                        <div id="student-only-fields">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="reg-roll">Roll Number</label>
+                                    <input type="text" id="reg-roll" placeholder="e.g. 21IT045">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-branch">Branch</label>
+                                    <input type="text" id="reg-branch" placeholder="e.g. IT, CSE, ECE">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="reg-year">Year</label>
+                                    <input type="number" id="reg-year" min="1" max="4" value="4">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-cgpa">CGPA</label>
+                                    <input type="number" id="reg-cgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.5">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-backlogs">Active Backlogs</label>
+                                <input type="number" id="reg-backlogs" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Recruiter Fields -->
+                        <div id="recruiter-only-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="reg-company">Company Name</label>
+                                <input type="text" id="reg-company" placeholder="e.g. Google, Microsoft">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="reg-designation">Designation</label>
+                                    <input type="text" id="reg-designation" placeholder="e.g. Lead HR">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-website">Company Website</label>
+                                    <input type="text" id="reg-website" placeholder="e.g. https://google.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Register <i class="fa-solid fa-user-plus"></i></button>
+                    </form>
+
+                    <!-- OTP Screen -->
+                    <div id="otp-wrapper" style="display: none; text-align: center; margin-top: 1.5rem;">
+                        <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                            <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-key" style="color: var(--accent-amber);"></i> Account Verification</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Please enter the 6-digit OTP code sent to your email.</p>
+                            <input type="text" id="otp-code" maxlength="6" placeholder="Enter OTP" style="text-align: center; font-size: 1.25rem; letter-spacing: 0.5rem; max-width: 200px; margin-bottom: 1rem;">
+                            <div style="display: flex; gap: 1rem; justify-content: center;">
+                                <button type="button" class="btn" onclick="verifyOtp()">Verify Code</button>
+                                <button type="button" class="btn btn-secondary" onclick="resendOtp()">Resend OTP</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrated ERP Placement Modules -->
+            <div class="landing-modules-section">
+                <div class="landing-section-header">
+                    <h2>Integrated ERP Placement Modules</h2>
+                    <p>Streamlining coordination and workflow records for administrators, candidates, and hiring managers.</p>
+                </div>
+                <div class="modules-grid">
+                    <div class="module-card">
+                        <div class="module-icon"><i class="fa-solid fa-database"></i></div>
+                        <h3>Student Placement Records</h3>
+                        <p>Centralized profiles recording student credentials, CGPA, backlogs, skills, and portfolio URLs with secure file uploads.</p>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-icon"><i class="fa-solid fa-building"></i></div>
+                        <h3>Corporate Drive Management</h3>
+                        <p>Allows recruiters to register company profiles, post job descriptions, define packages, and specify requirements.</p>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-icon"><i class="fa-solid fa-microchip"></i></div>
+                        <h3>Smart Eligibility Filtration</h3>
+                        <p>Automated criteria validation filters eligible profiles instantly based on CGPA constraints and backlog limits.</p>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <h3>Interview Coordinator</h3>
+                        <p>Seamlessly schedules technical and HR interviews, logs direct meet links, tracks durations, and manages scores.</p>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <h3>Analytics & PDF Reports</h3>
+                        <p>Generates real-time visual stats, branch-wise placements, salary package distribution, and downloadable reports.</p>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-icon"><i class="fa-solid fa-comments"></i></div>
+                        <h3>Direct Chat Support</h3>
+                        <p>Real-time chat enabled by WebSocket connections bridges immediate communication between recruiters, students, and coordinators.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Banner -->
+            <div class="landing-stats-section">
+                <div class="stat-box">
+                    <h4>98%</h4>
+                    <p>Placement Conversion</p>
+                </div>
+                <div class="stat-box">
+                    <h4>250+</h4>
+                    <p>Partner Corporates</p>
+                </div>
+                <div class="stat-box">
+                    <h4>32 LPA</h4>
+                    <p>Highest Salary Package</p>
+                </div>
+                <div class="stat-box">
+                    <h4>12,000+</h4>
+                    <p>Interviews Coordinated</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Portal Dashboards View -->
+        <section id="portal-view" class="dashboard-container" style="display: none;">
+            
+            <!-- Left Sidebar Navigation -->
+            <div class="sidebar">
+                <ul class="sidebar-menu" id="sidebar-menu">
+                    <!-- Loaded dynamically via js based on user role -->
+                </ul>
+            </div>
+
+            <!-- Right Main Panels Content -->
+            <div class="main-content" id="panel-content">
+                <!-- Dynamically injected panels go here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none; position: fixed; bottom: 2rem; right: 2rem; background: var(--bg-secondary); border-left: 4px solid var(--accent-blue); border-radius: 8px; padding: 1rem 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 999; animation: slideIn 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon" style="font-size: 1.2rem; color: var(--accent-blue);"><i class="fa-solid fa-info-circle"></i></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title" style="font-size: 0.95rem;">Alert</h4>
+                <p id="toast-desc" style="font-size: 0.85rem; color: var(--text-secondary);">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <!-- SockJS and STOMP CDNs for WebSocket Chat -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

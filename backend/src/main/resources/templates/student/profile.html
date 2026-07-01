@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('My Student Portfolio')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-user-graduate" style="color:var(--accent-blue);"></i> My Placement Credentials</h2>
+                    <div style="display:flex; gap:0.5rem;">
+                        <button class="btn btn-secondary" onclick="location.href='/student/resume'"><i class="fa-solid fa-file-pdf"></i> Resume</button>
+                        <button class="btn btn-secondary" onclick="location.href='/student/skills'"><i class="fa-solid fa-code"></i> Skills</button>
+                        <button class="btn btn-secondary" onclick="location.href='/student/projects'"><i class="fa-solid fa-laptop-code"></i> Projects</button>
+                        <button class="btn btn-secondary" onclick="location.href='/student/certificates'"><i class="fa-solid fa-award"></i> Certificates</button>
+                    </div>
+                </div>
+
+                <form id="student-profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profile-roll">Roll Number</label>
+                            <input type="text" id="profile-roll" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-branch">Branch / Specialization</label>
+                            <input type="text" id="profile-branch" placeholder="e.g. CSE, IT, ECE" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profile-year">Current Academic Year</label>
+                            <input type="number" id="profile-year" min="1" max="4" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-cgpa">Cumulative CGPA</label>
+                            <input type="number" id="profile-cgpa" step="0.01" min="0" max="10" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-backlogs">Active Backlogs</label>
+                        <input type="number" id="profile-backlogs" min="0" required>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; margin-top:1rem;">Save Portfolio Changes <i class="fa-solid fa-save"></i></button>
+                </form>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="glass-card">
+                <h3>Portfolio Summary</h3>
+                <div class="student-stats" style="margin-top:1.5rem;">
+                    <div>
+                        <h4 style="color:var(--text-secondary);">Skills Registered</h4>
+                        <div id="skills-list" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+                            <!-- Handled via student.js -->
+                            <p style="color:var(--text-muted); font-size:0.9rem;">No skills listed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/student.js"></script>
+</body>
+</html>

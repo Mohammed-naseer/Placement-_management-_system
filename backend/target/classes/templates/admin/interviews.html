@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Interviews Audit')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Interview Drives Scheduled</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Monitor drive coordinators, dates, links, and duration status.</p>
+                
+                <table style="margin-top:2rem;">
+                    <thead>
+                        <tr>
+                            <th>Round ID</th>
+                            <th>Round Name</th>
+                            <th>Date & Time</th>
+                            <th>Duration</th>
+                            <th>Location Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Technical Assessment 1</td>
+                            <td>2026-07-15 14:00</td>
+                            <td>45 mins</td>
+                            <td><a href="https://meet.google.com/abc" target="_blank" style="color:var(--accent-blue);">meet.google.com/abc</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

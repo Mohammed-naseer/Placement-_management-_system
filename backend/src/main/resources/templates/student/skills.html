@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Portfolio Skills')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <button class="btn btn-secondary" onclick="location.href='/student/profile'" style="margin-bottom: 1rem;"><i class="fa-solid fa-arrow-left"></i> Portfolio Details</button>
+                <h2>Sync Skills</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem; font-size:0.9rem;">Register multiple skills separated by commas.</p>
+                
+                <div style="margin-top: 1.5rem; display:flex; gap:1rem;">
+                    <input type="text" id="new-skills-input" placeholder="e.g. Java, Python, SQL, Docker, AWS" style="flex:1;">
+                    <button class="btn" onclick="window.syncStudentSkills()"><i class="fa-solid fa-sync"></i> Sync</button>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>Registered Skills</h3>
+                <div id="skills-list" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1.5rem;">
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Checking skills...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/student.js"></script>
+</body>
+</html>

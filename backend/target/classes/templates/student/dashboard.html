@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Student Dashboard')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="glass-card">
+                <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Welcome Back, <span id="dashboard-name" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Student</span>!</h1>
+                <p style="color: var(--text-secondary);">Here's your smart placement overview. Sync your resume, track active drives, and review scheduled rounds.</p>
+            </div>
+
+            <!-- Stats Metrics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card" onclick="location.href='/student/jobs'" style="cursor: pointer;">
+                    <div class="stat-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-jobs-count">Active</h3>
+                        <p>Vacancy Drives</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="location.href='/student/applied-jobs'" style="cursor: pointer;">
+                    <div class="stat-icon" style="color: var(--accent-emerald);"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-apps-count">Applied</h3>
+                        <p>Applications</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="location.href='/student/interviews'" style="cursor: pointer;">
+                    <div class="stat-icon" style="color: var(--accent-purple);"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-int-count">Scheduled</h3>
+                        <p>Interviews</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts / Notifications Summary -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-bell" style="color:var(--accent-amber);"></i> Recent Alerts</h2>
+                    <button class="btn btn-secondary" onclick="location.href='/student/notifications'">View All</button>
+                </div>
+                <div id="notifications-page-list" class="notification-list">
+                    <!-- Notifications rendered via notifications.js -->
+                    <p style="text-align:center; color:var(--text-muted); padding:1rem;">Checking alert logs...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    
+    <!-- Load role specific dashboard logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Wait for session initialization from dashboard.js
+            setTimeout(async () => {
+                const nameEl = document.getElementById("dashboard-name");
+                if (nameEl && window.state.user) {
+                    nameEl.textContent = window.state.user.username;
+                }
+                
+                // Fetch simple counts for metrics
+                try {
+                    const jobs = await window.apiRequest("/jobs/public", "GET");
+                    document.getElementById("stat-jobs-count").textContent = (jobs || []).length + " Open";
+                    
+                    const apps = await window.apiRequest("/applications/student", "GET");
+                    document.getElementById("stat-apps-count").textContent = (apps || []).length + " Sent";
+
+                    const ints = await window.apiRequest("/interviews", "GET");
+                    document.getElementById("stat-int-count").textContent = (ints || []).length + " Rounds";
+                } catch(e) {
+                    console.warn("Metrics load failed", e);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('TPO Alerts Manager')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-bell" style="color:var(--accent-amber);"></i> Coordinator Alerts Manager</h2>
+                    <button class="btn btn-secondary" onclick="window.markAllNotificationsRead()"><i class="fa-solid fa-check-double"></i> Mark All Read</button>
+                </div>
+                <div id="notifications-page-list" class="notification-list">
+                    <p style="text-align:center; color:var(--text-muted); padding:1.5rem;">Loading notification logs...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/notifications.js"></script>
+</body>
+</html>

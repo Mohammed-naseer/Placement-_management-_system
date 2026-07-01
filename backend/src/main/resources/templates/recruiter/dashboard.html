@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Recruiter Workspace')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: recruiter-sidebar}"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="glass-card">
+                <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Corporate Drive Portal</h1>
+                <p style="color: var(--text-secondary);">Manage vacancy postings, audit student applications, and coordinate technical and HR interview rounds.</p>
+            </div>
+
+            <!-- Recruiter Drive Stats -->
+            <div class="stats-grid">
+                <div class="stat-card" onclick="location.href='/recruiter/manage-jobs'" style="cursor: pointer;">
+                    <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    <div class="stat-info">
+                        <h3 id="rec-stat-jobs">Active</h3>
+                        <p>Drives Posted</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="location.href='/recruiter/applicants'" style="cursor: pointer;">
+                    <div class="stat-icon" style="color:var(--accent-cyan);"><i class="fa-solid fa-users-line"></i></div>
+                    <div class="stat-info">
+                        <h3 id="rec-stat-applicants">Pending</h3>
+                        <p>Applicant Files</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="location.href='/recruiter/interviews'" style="cursor: pointer;">
+                    <div class="stat-icon" style="color:var(--accent-purple);"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h3 id="rec-stat-interviews">Scheduled</h3>
+                        <p>Interviews</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>Recruitment Summary</h3>
+                <p style="margin-top:1rem; color:var(--text-secondary); line-height:1.5;">Click any card metrics to check details or post new job listings using the menu controls.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(async () => {
+                try {
+                    const jobs = await window.apiRequest("/jobs/recruiter", "GET");
+                    document.getElementById("rec-stat-jobs").textContent = (jobs || []).length + " Drives";
+
+                    const apps = await window.apiRequest("/applications/recruiter", "GET");
+                    document.getElementById("rec-stat-applicants").textContent = (apps || []).length + " Files";
+
+                    const ints = await window.apiRequest("/interviews", "GET");
+                    document.getElementById("rec-stat-interviews").textContent = (ints || []).length + " Rounds";
+                } catch(e) {}
+            }, 500);
+        });
+    </script>
+</body>
+</html>

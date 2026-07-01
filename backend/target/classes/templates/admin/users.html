@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Users Management')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>User Accounts Management</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Audit system login files, toggle credentials status, and manage roles.</p>
+                
+                <table style="margin-top:2rem;">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Email Address</th>
+                            <th>Role Group</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>student</td>
+                            <td>student@college.edu</td>
+                            <td>STUDENT</td>
+                            <td><span class="badge badge-approved">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>recruiter</td>
+                            <td>recruiter@google.com</td>
+                            <td>RECRUITER</td>
+                            <td><span class="badge badge-approved">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>tpo</td>
+                            <td>tpo@college.edu</td>
+                            <td>PLACEMENT_OFFICER</td>
+                            <td><span class="badge badge-approved">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

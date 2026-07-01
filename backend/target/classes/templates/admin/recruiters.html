@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Registered Recruiters')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Corporate HR Representatives</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Monitor recruiter designations, corporate accounts, and representative credentials.</p>
+                
+                <table style="margin-top:2rem;">
+                    <thead>
+                        <tr>
+                            <th>Recruiter ID</th>
+                            <th>Contact Name</th>
+                            <th>Designation</th>
+                            <th>Target Company</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Hiring Manager</td>
+                            <td>Lead HR Representative</td>
+                            <td>TechCorp Inc.</td>
+                            <td><span class="badge badge-approved">Verified</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Sarah Jenkins</td>
+                            <td>Talent Lead</td>
+                            <td>PixelStudio</td>
+                            <td><span class="badge badge-approved">Verified</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

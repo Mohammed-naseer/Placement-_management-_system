@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Post Vacancy Drive')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: recruiter-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Post New Recruitment Drive</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Define role profiles, salary structures, eligibility cgpa, and test coordinates.</p>
+                
+                <form id="post-job-form" style="margin-top: 1.5rem;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="job-title">Job Title</label>
+                            <input type="text" id="job-title" placeholder="e.g. Associate Backend Engineer" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="job-salary">Salary Package (LPA)</label>
+                            <input type="number" step="0.1" id="job-salary" placeholder="e.g. 12.5" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-desc">Job Description</label>
+                        <textarea id="job-desc" placeholder="Detail tasks, workflow boundaries, and tech stack overview" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-reqs">Core Requirements</label>
+                        <input type="text" id="job-reqs" placeholder="e.g. Java, Spring Boot, MySQL, REST APIs" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="job-location">Location</label>
+                            <input type="text" id="job-location" placeholder="e.g. Bangalore, Remote" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="job-work-type">Work Type</label>
+                            <select id="job-work-type" required>
+                                <option value="ON_SITE">On Site</option>
+                                <option value="HYBRID">Hybrid</option>
+                                <option value="REMOTE">Remote</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="job-min-cgpa">Minimum CGPA Constraint</label>
+                            <input type="number" step="0.01" id="job-min-cgpa" placeholder="e.g. 8.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="job-max-backlogs">Maximum Backlogs Allowed</label>
+                            <input type="number" id="job-max-backlogs" min="0" placeholder="e.g. 0" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="job-deadline">Application Deadline</label>
+                            <input type="datetime-local" id="job-deadline" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="job-branches">Target Branches (comma-separated)</label>
+                            <input type="text" id="job-branches" placeholder="e.g. CSE, IT, ECE" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; margin-top:1rem;">Publish Job Drive <i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/recruiter.js"></script>
+</body>
+</html>

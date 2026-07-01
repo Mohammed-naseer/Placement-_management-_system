@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Job Drive Details')}"></head>
+<body>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <button class="btn btn-secondary" onclick="location.href='/student/jobs'" style="margin-bottom: 1.5rem;"><i class="fa-solid fa-arrow-left"></i> Back to Drives</button>
+                
+                <div style="display:flex; gap:1.5rem; align-items:center; margin-bottom:2rem;">
+                    <div class="company-logo" style="width:80px; height:80px; font-size:2rem;"><i class="fa-solid fa-building"></i></div>
+                    <div>
+                        <h1 id="job-detail-title">Software Developer</h1>
+                        <p id="job-detail-company" style="font-size:1.1rem; color:var(--accent-blue); margin-top:0.25rem;">Enterprise Corp</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="margin-bottom:2rem;">
+                    <div class="stat-card" style="padding:1rem;">
+                        <div class="stat-info">
+                            <h3 id="job-detail-salary">12.5 LPA</h3>
+                            <p>Salary Package</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding:1rem;">
+                        <div class="stat-info">
+                            <h3 id="job-detail-location">Bangalore</h3>
+                            <p>Location</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding:1rem;">
+                        <div class="stat-info">
+                            <h3 id="job-detail-cgpa">8.0 CGPA</h3>
+                            <p>Minimum Eligibility</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Job Description</h3>
+                <p id="job-detail-desc" style="color:var(--text-secondary); line-height:1.6; margin-top:0.75rem; margin-bottom:2rem;">Details about roles and responsibilities...</p>
+
+                <h3>Core Requirements</h3>
+                <p id="job-detail-reqs" style="color:var(--text-secondary); line-height:1.6; margin-top:0.75rem; margin-bottom:2rem;">Required techstack and qualifications...</p>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-color); padding-top:1.5rem;">
+                    <span id="job-detail-deadline" style="font-size:0.9rem; color:var(--text-muted);">Deadline: N/A</span>
+                    <button class="btn" id="apply-detail-btn"><i class="fa-solid fa-paper-plane"></i> Apply to Drive</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('id') || 1;
+            
+            try {
+                const jobs = await window.apiRequest("/jobs/public", "GET");
+                const job = (jobs || []).find(j => j.id === parseInt(jobId));
+                if (job) {
+                    document.getElementById("job-detail-title").textContent = job.title;
+                    document.getElementById("job-detail-company").textContent = job.companyName || "Corporate Partner";
+                    document.getElementById("job-detail-salary").textContent = job.salaryPackage + " LPA";
+                    document.getElementById("job-detail-location").textContent = job.location + " (" + job.workType + ")";
+                    document.getElementById("job-detail-cgpa").textContent = job.minCgpa + " CGPA";
+                    document.getElementById("job-detail-desc").textContent = job.description;
+                    document.getElementById("job-detail-reqs").textContent = job.requirements;
+                    document.getElementById("job-detail-deadline").textContent = "Deadline: " + new Date(job.applicationDeadline).toLocaleDateString();
+                    
+                    document.getElementById("apply-detail-btn").onclick = async () => {
+                        try {
+                            await window.apiRequest(`/applications?jobId=${job.id}`, "POST");
+                            window.showToast("Applied", "Application submitted successfully!", "success");
+                        } catch (e) {
+                            window.showToast("Failed", e.message, "error");
+                        }
+                    };
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        });
+    </script>
+</body>
+</html>

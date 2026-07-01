@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Portfolio Projects')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <button class="btn btn-secondary" onclick="location.href='/student/profile'" style="margin-bottom: 1rem;"><i class="fa-solid fa-arrow-left"></i> Portfolio Details</button>
+                <h2>Add Project</h2>
+                
+                <form id="student-project-form" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label for="proj-title">Project Title</label>
+                        <input type="text" id="proj-title" placeholder="e.g. Smart ERP Platform" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="proj-desc">Description</label>
+                        <textarea id="proj-desc" placeholder="Describe the scope, framework, and database integrations" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="proj-tech">Technologies Used</label>
+                            <input type="text" id="proj-tech" placeholder="e.g. Java, Spring Boot, MySQL" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-link">Repository Link</label>
+                            <input type="url" id="proj-link" placeholder="e.g. https://github.com/...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Add Project <i class="fa-solid fa-plus"></i></button>
+                </form>
+            </div>
+
+            <div class="glass-card">
+                <h3>Registered Projects</h3>
+                <div id="projects-list">
+                    <p style="color:var(--text-muted); font-size:0.9rem; margin-top:1rem;">Checking projects...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/student.js"></script>
+</body>
+</html>

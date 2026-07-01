@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('AI-PMS - Next-Gen Campus Placement Office')}"></head>
+<body>
+    <!-- Animated Glowing Background Blobs -->
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-2"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i> AI-PMS
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-secondary" onclick="location.href='/login'">Login</button>
+                <button class="btn" onclick="location.href='/register'">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Authentication View (Product Landing Page) -->
+        <section class="auth-wrapper" style="margin-top: 2rem;">
+            <!-- Left Side: 3D Holographic Hero and Features -->
+            <div class="auth-hero-3d">
+                <h1 class="hero-3d-title">Next-Gen Campus <span>Placement ERP</span></h1>
+                <p class="hero-3d-desc">Experience a comprehensive web-based platform designed to streamline the campus recruitment lifecycle, coordinate student databases, automate eligibility filters, and schedule interviews.</p>
+                <div class="hero-3d-image-container">
+                    <img src="/images/hero.png" class="hero-3d-image" alt="AI Placement Management System">
+                </div>
+            </div>
+
+            <!-- Right Side: Get Started Glass Card -->
+            <div class="auth-card" style="text-align: center;">
+                <h2 style="font-size: 2rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;"><i class="fa-solid fa-graduation-cap"></i> AI-PMS</h2>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem; margin-bottom: 2rem;">Smart Placement Office ERP</p>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.5;">Access your student portfolio, publish vacancy drives, coordinate schedules, and analyze drive stats instantly.</p>
+
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <button class="btn" style="width:100%; padding:1rem;" onclick="location.href='/login'">Sign In to Portal <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                    <button class="btn btn-secondary" style="width:100%; padding:1rem;" onclick="location.href='/register'">Create Account <i class="fa-solid fa-user-plus"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrated ERP Placement Modules -->
+        <div class="landing-modules-section">
+            <div class="landing-section-header">
+                <h2>Integrated ERP Placement Modules</h2>
+                <p>Streamlining coordination and workflow records for administrators, candidates, and hiring managers.</p>
+            </div>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-icon"><i class="fa-solid fa-database"></i></div>
+                    <h3>Student Placement Records</h3>
+                    <p>Centralized profiles recording student credentials, CGPA, backlogs, skills, and portfolio URLs with secure file uploads.</p>
+                </div>
+                <div class="module-card">
+                    <div class="module-icon"><i class="fa-solid fa-building"></i></div>
+                    <h3>Corporate Drive Management</h3>
+                    <p>Allows recruiters to register company profiles, post job descriptions, define packages, and specify requirements.</p>
+                </div>
+                <div class="module-card">
+                    <div class="module-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <h3>Smart Eligibility Filtration</h3>
+                    <p>Automated criteria validation filters eligible profiles instantly based on CGPA constraints and backlog limits.</p>
+                </div>
+                <div class="module-card">
+                    <div class="module-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Interview Coordinator</h3>
+                    <p>Seamlessly schedules technical and HR interviews, logs direct meet links, tracks durations, and manages scores.</p>
+                </div>
+                <div class="module-card">
+                    <div class="module-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <h3>Analytics & PDF Reports</h3>
+                    <p>Generates real-time visual stats, branch-wise placements, salary package distribution, and downloadable reports.</p>
+                </div>
+                <div class="module-card">
+                    <div class="module-icon"><i class="fa-solid fa-comments"></i></div>
+                    <h3>Direct Chat Support</h3>
+                    <p>Real-time chat enabled by WebSocket connections bridges immediate communication between recruiters, students, and coordinators.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Banner -->
+        <div class="landing-stats-section">
+            <div class="stat-box">
+                <h4>98%</h4>
+                <p>Placement Conversion</p>
+            </div>
+            <div class="stat-box">
+                <h4>250+</h4>
+                <p>Partner Corporates</p>
+            </div>
+            <div class="stat-box">
+                <h4>32 LPA</h4>
+                <p>Highest Salary Package</p>
+            </div>
+            <div class="stat-box">
+                <h4>12,000+</h4>
+                <p>Interviews Coordinated</p>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

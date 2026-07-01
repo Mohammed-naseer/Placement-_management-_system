@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Enrolled Student Directory')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Registered Student Directory</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Monitor CGPAs, branch distributions, active backlogs, and eligibility status.</p>
+                
+                <table style="margin-top:2rem;">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Roll Number</th>
+                            <th>Branch</th>
+                            <th>CGPA</th>
+                            <th>Backlogs</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-students-tbody">
+                        <tr>
+                            <td>1</td>
+                            <td>21IT045</td>
+                            <td>IT</td>
+                            <td>8.5</td>
+                            <td>0</td>
+                            <td><span class="badge badge-approved">Eligible</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>21CS102</td>
+                            <td>CSE</td>
+                            <td>7.2</td>
+                            <td>1</td>
+                            <td><span class="badge badge-pending">Review Required</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>21EC088</td>
+                            <td>ECE</td>
+                            <td>8.9</td>
+                            <td>0</td>
+                            <td><span class="badge badge-approved">Eligible</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

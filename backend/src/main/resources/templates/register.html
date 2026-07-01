@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Create Portal Account')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-3"></div>
+    
+    <header>
+        <div class="nav-container">
+            <div class="logo" style="cursor: pointer;" onclick="location.href='/'">
+                <i class="fa-solid fa-graduation-cap"></i> AI-PMS
+            </div>
+            <div>
+                <button class="btn btn-secondary" onclick="location.href='/login'">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-wrapper" style="margin-top: 1rem; margin-bottom: 2rem;">
+        <div class="auth-card" style="max-width: 540px;">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 2rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;"><i class="fa-solid fa-graduation-cap"></i> AI-PMS</h2>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem;">Register portal credentials</p>
+            </div>
+
+            <form id="register-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-username">Username</label>
+                        <input type="text" id="reg-username" placeholder="Choose username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" placeholder="student@college.edu" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="Min 6 characters" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-role">Role</label>
+                        <select id="reg-role" onchange="window.toggleRoleFields()" required>
+                            <option value="STUDENT">Student</option>
+                            <option value="RECRUITER">Recruiter</option>
+                            <option value="PLACEMENT_OFFICER">Placement Officer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dynamic Student Fields -->
+                <div id="student-only-fields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-roll">Roll Number</label>
+                            <input type="text" id="reg-roll" placeholder="e.g. 21IT045">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-branch">Branch</label>
+                            <input type="text" id="reg-branch" placeholder="e.g. IT, CSE, ECE">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-year">Year</label>
+                            <input type="number" id="reg-year" min="1" max="4" value="4">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-cgpa">CGPA</label>
+                            <input type="number" id="reg-cgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-backlogs">Active Backlogs</label>
+                        <input type="number" id="reg-backlogs" min="0" value="0">
+                    </div>
+                </div>
+
+                <!-- Dynamic Recruiter Fields -->
+                <div id="recruiter-only-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="reg-company">Company Name</label>
+                        <input type="text" id="reg-company" placeholder="e.g. Google, Microsoft">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-designation">Designation</label>
+                            <input type="text" id="reg-designation" placeholder="e.g. Lead HR">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-website">Company Website</label>
+                            <input type="text" id="reg-website" placeholder="e.g. https://google.com">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Register <i class="fa-solid fa-user-plus"></i></button>
+            </form>
+
+            <!-- OTP Screen -->
+            <div id="otp-wrapper" style="display: none; text-align: center; margin-top: 1.5rem;">
+                <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                    <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-key" style="color: var(--accent-amber);"></i> Account Verification</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Please enter the 6-digit OTP code sent to your email.</p>
+                    <input type="text" id="otp-code" maxlength="6" placeholder="Enter OTP" style="text-align: center; font-size: 1.25rem; letter-spacing: 0.5rem; max-width: 200px; margin-bottom: 1rem;">
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button type="button" class="btn" onclick="window.verifyOtp()">Verify Code</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.resendOtp()">Resend OTP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Access Denied')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo" style="cursor: pointer;" onclick="location.href='/'">
+                <i class="fa-solid fa-graduation-cap"></i> AI-PMS
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-wrapper" style="min-height: calc(100vh - 200px); flex-direction:column; text-align:center;">
+        <div class="auth-card" style="max-width:500px;">
+            <h1 style="font-size: 5rem; background: linear-gradient(135deg, var(--accent-rose), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">403</h1>
+            <h2 style="margin-top: 1rem; font-size: 1.5rem;">Access Denied</h2>
+            <p style="color:var(--text-secondary); margin-top:0.5rem; margin-bottom:1.5rem;">You do not possess the required security clearance permissions to view this resource.</p>
+            <button class="btn" onclick="location.href='/'">Return Home <i class="fa-solid fa-home"></i></button>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Student Settings')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: student-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Account Settings</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem; font-size:0.9rem;">Adjust password settings, active sessions, and communication notifications preferences.</p>
+                
+                <div style="margin-top:2rem; border-top:1px solid var(--border-color); padding-top:1.5rem;">
+                    <h3>Account Security</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+                        <div>
+                            <p style="font-size:0.95rem;">Reset Credentials Password</p>
+                            <p style="font-size:0.8rem; color:var(--text-muted);">Receive a secure verification link to update security token.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="window.showToast('Security Alert', 'Verification link dispatched to email', 'success')">Request Link</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

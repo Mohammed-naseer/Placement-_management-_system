@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="navbar" id="main-header">
+    <div class="nav-container">
+        <div class="logo" style="cursor: pointer;" onclick="location.href='/'">
+            <i class="fa-solid fa-graduation-cap"></i> AI-PMS
+        </div>
+        <div class="user-badge">
+            <div class="user-avatar" id="nav-avatar">U</div>
+            <div class="user-info-text">
+                <span id="nav-username" style="font-weight: 600; display: block; font-size: 0.85rem;">User</span>
+                <span id="nav-role" style="color: var(--text-secondary); font-size: 0.75rem;">Role</span>
+            </div>
+            <i class="fa-solid fa-sign-out-alt" id="logout-btn" style="margin-left: 1rem; cursor: pointer; color: var(--accent-rose);" title="Logout"></i>
+        </div>
+    </div>
+</header>
+</html>

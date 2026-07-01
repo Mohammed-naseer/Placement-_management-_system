@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Company Profile Setup')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: recruiter-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Company Profile Information</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Verify corporate registration details and contact settings.</p>
+                
+                <form id="recruiter-profile-form" style="margin-top:1.5rem;" onsubmit="event.preventDefault(); window.showToast('Updated', 'Company profile metadata saved', 'success');">
+                    <div class="form-group">
+                        <label for="company-name-view">Registered Company Name</label>
+                        <input type="text" id="company-name-view" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company-website-view">Corporate Website</label>
+                            <input type="url" id="company-website-view" placeholder="e.g. https://google.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="rec-designation-view">HR Coordinator Designation</label>
+                            <input type="text" id="rec-designation-view" placeholder="e.g. Lead Talent Coordinator">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; margin-top:1rem;">Save Corporate Profile <i class="fa-solid fa-save"></i></button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(async () => {
+                try {
+                    const profile = await window.apiRequest("/auth/profile", "GET");
+                    if (profile && profile.recruiterProfile) {
+                        const rp = profile.recruiterProfile;
+                        document.getElementById("company-name-view").value = rp.company?.name || "";
+                        document.getElementById("company-website-view").value = rp.company?.website || "";
+                        document.getElementById("rec-designation-view").value = rp.designation || "";
+                    }
+                } catch(e) {}
+            }, 500);
+        });
+    </script>
+</body>
+</html>

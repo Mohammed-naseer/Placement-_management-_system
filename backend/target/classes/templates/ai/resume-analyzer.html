@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('AI ATS Resume Analyzer')}"></head>
+<body>
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <button class="btn btn-secondary" style="width:100%; margin-bottom:1rem;" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active"><i class="fa-solid fa-robot"></i> <span>ATS Alignment</span></li>
+            </ul>
+        </div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>AI ATS Resume Matcher</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem; font-size:0.9rem;">Paste your resume details alongside target job listings descriptions. Our NLP model will evaluate match ratings and list improvements.</p>
+                
+                <form id="ai-resume-form" style="margin-top: 2rem;">
+                    <div class="form-group">
+                        <label for="ai-resume-text">Paste Resume Text</label>
+                        <textarea id="ai-resume-text" placeholder="Copy-paste the complete text of your CV / Resume here..." style="min-height: 150px;" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ai-job-desc">Paste Target Job Description</label>
+                        <textarea id="ai-job-desc" placeholder="Paste the recruiter's posting description and skill requirements here..." style="min-height: 120px;" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%;">Evaluate ATS Score <i class="fa-solid fa-calculator"></i></button>
+                </form>
+            </div>
+
+            <div id="ai-analysis-results" class="glass-card" style="display:none; border-color:var(--accent-blue);">
+                <!-- Results loaded via chatbot.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/chatbot.js"></script>
+</body>
+</html>

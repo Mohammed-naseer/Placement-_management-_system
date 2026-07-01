@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header :: header('Applicants Tracking')}"></head>
+<body>
+    <div class="glow-bg-blob blob-2"></div>
+
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <div class="dashboard-container">
+        <div th:replace="~{fragments/sidebar :: recruiter-sidebar}"></div>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2>Applicant Tracking System</h2>
+                <p style="color:var(--text-secondary); margin-top:0.25rem;">Verify candidate GPA eligibility, update hiring status, and coordinate schedules.</p>
+            </div>
+
+            <div id="recruiter-applicants-list" class="jobs-list">
+                <div style="text-align: center; padding: 2rem;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; color:var(--accent-blue);"></i> Loading application archives...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Schedule Interview Modal Widget (Glass overlay) -->
+    <div id="schedule-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); align-items:center; justify-content:center; z-index:200;">
+        <div class="auth-card" style="width:100%; max-width:440px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
+                <h3><i class="fa-solid fa-calendar-check" style="color:var(--accent-purple);"></i> Schedule Interview</h3>
+                <i class="fa-solid fa-times" onclick="window.closeInterviewModal('schedule-modal')" style="cursor:pointer;"></i>
+            </div>
+            <form id="schedule-interview-form">
+                <input type="hidden" id="sched-app-id">
+                <div class="form-group">
+                    <label for="sched-title">Round Title</label>
+                    <input type="text" id="sched-title" placeholder="e.g. Technical Round 1" required>
+                </div>
+                <div class="form-group">
+                    <label for="sched-datetime">Date & Time</label>
+                    <input type="datetime-local" id="sched-datetime" required>
+                </div>
+                <div class="form-group">
+                    <label for="sched-link">Meeting Link</label>
+                    <input type="url" id="sched-link" placeholder="e.g. https://meet.google.com/abc" required>
+                </div>
+                <div class="form-group">
+                    <label for="sched-duration">Duration (Minutes)</label>
+                    <input type="number" id="sched-duration" min="15" max="180" value="45" required>
+                </div>
+                <button type="submit" class="btn" style="width:100%; margin-top:1rem;">Confirm Interview Round</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Global Toast Alert Banner -->
+    <div id="toast-banner" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="toast-icon"></span>
+            <div style="flex: 1;">
+                <h4 id="toast-title">Alert</h4>
+                <p id="toast-desc">Message details here.</p>
+            </div>
+            <i class="fa-solid fa-times" onclick="window.hideToast()" style="cursor: pointer; color: var(--text-muted);"></i>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script src="/js/recruiter.js"></script>
+    <script src="/js/interviews.js"></script>
+</body>
+</html>

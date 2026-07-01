@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <!-- Student Sidebar -->
+    <div th:fragment="student-sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item" onclick="location.href='/student/dashboard'">
+                <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/student/profile'">
+                <i class="fa-solid fa-user-graduate"></i> <span>My Portfolio</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/student/jobs'">
+                <i class="fa-solid fa-briefcase"></i> <span>Job Postings</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/student/applied-jobs'">
+                <i class="fa-solid fa-file-circle-check"></i> <span>Applied Jobs</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/student/interviews'">
+                <i class="fa-solid fa-calendar-days"></i> <span>Interviews</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/ai/resume-analyzer'">
+                <i class="fa-solid fa-robot"></i> <span>Resume ATS Matcher</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/ai/chatbot'">
+                <i class="fa-solid fa-compass"></i> <span>AI Chatbot</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/student/notifications'">
+                <i class="fa-solid fa-bell"></i> <span>Notifications</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Recruiter Sidebar -->
+    <div th:fragment="recruiter-sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item" onclick="location.href='/recruiter/dashboard'">
+                <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/recruiter/profile'">
+                <i class="fa-solid fa-building"></i> <span>Company Profile</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/recruiter/post-job'">
+                <i class="fa-solid fa-plus-circle"></i> <span>Post a Job</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/recruiter/manage-jobs'">
+                <i class="fa-solid fa-folder-open"></i> <span>Manage Jobs</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/recruiter/applicants'">
+                <i class="fa-solid fa-users-line"></i> <span>Applicants</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/recruiter/interviews'">
+                <i class="fa-solid fa-calendar-days"></i> <span>Interviews</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Admin Sidebar -->
+    <div th:fragment="admin-sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item" onclick="location.href='/admin/dashboard'">
+                <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/admin/students'">
+                <i class="fa-solid fa-user-graduate"></i> <span>Students</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/admin/recruiters'">
+                <i class="fa-solid fa-user-tie"></i> <span>Recruiters</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/admin/companies'">
+                <i class="fa-solid fa-building"></i> <span>Companies</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/admin/jobs'">
+                <i class="fa-solid fa-briefcase"></i> <span>Job Approvals</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/admin/reports'">
+                <i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports</span>
+            </li>
+            <li class="sidebar-item" onclick="location.href='/admin/analytics'">
+                <i class="fa-solid fa-chart-line"></i> <span>Analytics</span>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

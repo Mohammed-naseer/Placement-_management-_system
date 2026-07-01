@@ -1,0 +1,16 @@
+/* Admin configuration styles */
+.admin-settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.analytics-chart-container {
+    background: rgba(11, 15, 25, 0.4);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    height: 300px;
+    margin-top: 1rem;
+}
